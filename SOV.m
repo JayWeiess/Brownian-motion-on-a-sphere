@@ -1,4 +1,4 @@
-function [ SV,PreQ ] = SOV( BMS,PI,PO,SN)
+function [ SV,PreQ,ABC ] = SOV( BMS,PI,PO,SN)
 %% SOV 由平面驶出方向确定球面驶出方向
 % BMS--当前球面位置
 % PI---平面驶入方向
@@ -10,12 +10,14 @@ a=SN(1,1); b=SN(1,2); c=SN(1,3);
 x0=BMS(1,1);
 y0=BMS(1,2);
 z0=BMS(1,3);
+
 %外法向单位化
 %d=sqrt(a^2+b^2+c^2);
 SIN=PI(1,2)*PO(1,1)-PI(1,1)*PO(1,2);
 s=y0*c-z0*b;
 m=z0*a-x0*c;
 l=x0*b-y0*a;
+ABC=[a,b,c];
 % 确定一元二次方程系数
 p=1;
 PreQ(1,6)=0;
@@ -30,7 +32,7 @@ z1=(q-sqrt(q^2-4*p*k))/(2*p);
 x1=(s*z1-y0*SIN)/l;
 y1=(m*z1+x0*SIN)/l;
 
-z2=(q+sqrt(q^2-4*p*l))/(2*p);
+z2=(q+sqrt(q^2-4*p*k))/(2*p);
 x2=(s*z2-y0*SIN)/l;
 y2=(m*z2+x0*SIN)/l;
 
